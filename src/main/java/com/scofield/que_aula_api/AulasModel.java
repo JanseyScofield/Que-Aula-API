@@ -42,7 +42,7 @@ public class AulasModel {
     }
 
     public void setNomeProfessor(String novoProfessor){
-        if(novoProfessor.isEmpty()){
+        if(novoProfessor == null || novoProfessor.trim().isEmpty()){
             throw new IllegalArgumentException("O nome do professor não pode estar vazio");
         }
         this.nomeProfessor = novoProfessor;
@@ -53,7 +53,7 @@ public class AulasModel {
     }
 
     public void setSala(String novaSala){
-        if(novaSala.isEmpty()){
+        if(novaSala == null ||novaSala.trim().isEmpty()){
             throw new IllegalArgumentException("O nome da sala não pode estar vazio");
         }
         this.sala = novaSala;
