@@ -1,6 +1,4 @@
-package com.scofield.que_aula_api;
-
-import org.springframework.web.bind.MethodArgumentNotValidException;
+package com.scofield.que_aula_api.models;
 
 public class AulasModel {
     private int diaSemana;
