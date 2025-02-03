@@ -58,4 +58,8 @@ public class DisciplinaService {
             throw new RuntimeException("Erro ao ler o arquivo JSON", e);
         }
     }
+
+    public List<DisciplinaModel> obterTodasDisciplinas(){
+        return disiciplinaRepository.getListaDisciplinas();
+    }
 }
