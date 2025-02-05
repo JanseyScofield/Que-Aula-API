@@ -8,8 +8,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandle {
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErroResponse> handleException(RuntimeException ex){
+    public ResponseEntity<ErroResponse> handleRuntimeException(RuntimeException ex){
         ErroResponse erro = new ErroResponse(HttpStatus.BAD_REQUEST.value(), "Erro: " + ex.getMessage());
+        return ResponseEntity.badRequest().body(erro);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErroResponse> handleIllegalArgumentException(IllegalArgumentException ex){
+        ErroResponse erro = new ErroResponse(HttpStatus.BAD_REQUEST.value(), "Parâmetros inválidos: " + ex.getMessage());
         return ResponseEntity.badRequest().body(erro);
     }
 }
