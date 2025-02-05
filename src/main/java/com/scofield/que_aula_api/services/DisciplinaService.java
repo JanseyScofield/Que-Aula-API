@@ -2,6 +2,7 @@ package com.scofield.que_aula_api.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.scofield.que_aula_api.exceptions.LoadException;
 import com.scofield.que_aula_api.models.AulasModel;
 import com.scofield.que_aula_api.models.DisciplinaModel;
 import com.scofield.que_aula_api.repository.DisciplinaRepository;
@@ -61,9 +62,29 @@ public class DisciplinaService {
 
     public List<DisciplinaModel> obterTodasDisciplinas(){
         if(disciplinaRepository.getListaDisciplinas() == null){
-            throw new RuntimeException("Carregue as disciplinas antes de obte-las");
+            throw new LoadException();
         }
         return disciplinaRepository.getListaDisciplinas();
     }
 
+    public List<DisciplinaModel> obterDisciplinasSemestre(int semestre){
+        int iCont;
+
+        if(semestre < 0 || semestre > 6){
+            throw new IllegalArgumentException("O valor de semestre não pode ser menor que 0 ou maior que 6");
+        }
+        if(disciplinaRepository.getListaDisciplinas() == null){
+            throw new LoadException();
+        }
+
+        List<DisciplinaModel> listaCompleta = new ArrayList<>(disciplinaRepository.getListaDisciplinas());
+        List<DisciplinaModel> listaSemestre = new ArrayList<>();
+        for(iCont = 0; iCont < listaCompleta.size(); iCont++){
+            if(listaCompleta.get(iCont).getSemestre() == semestre){
+                listaSemestre.add(listaCompleta.get(iCont));
+            }
+        }
+
+        return listaSemestre;
+    }
 }

@@ -5,6 +5,7 @@ import com.scofield.que_aula_api.services.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,4 +29,11 @@ public class DisciplinaController {
     public ResponseEntity<List<DisciplinaModel>> obterDisciplinas(){
         return ResponseEntity.ok().body(disciplinaService.obterTodasDisciplinas());
     }
+
+    @GetMapping("obter/semestre/{semestre}")
+    public ResponseEntity<List<DisciplinaModel>> obterDisciplinaSemestre(@PathVariable("semestre") int semestre){
+            return ResponseEntity.ok().body(disciplinaService.obterDisciplinasSemestre(semestre));
+    }
+
+
 }
