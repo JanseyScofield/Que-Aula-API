@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scofield.que_aula_api.models.AulasModel;
 import com.scofield.que_aula_api.models.DisciplinaModel;
-import com.scofield.que_aula_api.repository.DisiciplinaRepository;
+import com.scofield.que_aula_api.repository.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class DisciplinaService {
 
     @Autowired
-    private DisiciplinaRepository disiciplinaRepository;
+    private DisciplinaRepository disciplinaRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public void carregarDisciplinas() {
@@ -53,13 +53,17 @@ public class DisciplinaService {
                 DisciplinaModel disciplina = new DisciplinaModel(nome, descricao, semestre, multiAulas, greve, aulas);
                 disciplinas.add(disciplina);
             }
-            disiciplinaRepository.setListaDisciplinas(disciplinas);
+            disciplinaRepository.setListaDisciplinas(disciplinas);
         } catch (IOException e) {
             throw new RuntimeException("Erro ao ler o arquivo JSON", e);
         }
     }
 
     public List<DisciplinaModel> obterTodasDisciplinas(){
-        return disiciplinaRepository.getListaDisciplinas();
+        if(disciplinaRepository.getListaDisciplinas() == null){
+            throw new RuntimeException("Carregue as disciplinas antes de obte-las");
+        }
+        return disciplinaRepository.getListaDisciplinas();
     }
+
 }

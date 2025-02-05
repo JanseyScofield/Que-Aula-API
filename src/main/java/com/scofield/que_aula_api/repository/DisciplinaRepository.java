@@ -6,10 +6,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DisiciplinaRepository {
+public class DisciplinaRepository {
     private List<DisciplinaModel> listaDisciplinas;
 
-    public DisiciplinaRepository(){
+    public DisciplinaRepository(){
         this.listaDisciplinas = null;
     }
 
